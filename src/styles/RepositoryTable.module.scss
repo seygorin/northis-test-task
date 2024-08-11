@@ -1,0 +1,12 @@
+.tableContainer {
+  margin-bottom: 2rem;
+}
+
+.tableRow {
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}

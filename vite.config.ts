@@ -10,6 +10,8 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "src/hooks"),
       "@store": path.resolve(__dirname, "src/store"),
       "@type": path.resolve(__dirname, "src/types"),
+      "@service": path.resolve(__dirname, "src/service"),
+      "@styles": path.resolve(__dirname, "src/styles"),
     },
   },
 });

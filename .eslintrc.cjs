@@ -31,6 +31,8 @@ module.exports = {
           ["@hooks", "./src/hooks"],
           ["@type", "./src/types"],
           ["@store", "./src/store"],
+          ["@service", "./src/service"],
+          ["@styles", "./src/styles"],
         ],
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
       },
@@ -46,7 +48,7 @@ module.exports = {
         tsx: "never",
       },
     ],
-    "prettier/prettier": ["error", { printWidth: 90 }],
+    "prettier/prettier": ["error", { printWidth: 80 }],
     "import/no-extraneous-dependencies": [
       "error",
       {

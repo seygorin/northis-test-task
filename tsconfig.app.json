@@ -30,7 +30,10 @@
       "@components/*": ["src/components/*"],
       "@hooks/*": ["src/hooks/*"],
       "@store/*": ["src/store/*"],
-      "@type/*": ["src/types/*"]
+      "@type/*": ["src/types/*"],
+			"@service/*": ["src/service/*"],
+			"@styles/*": ["src/styles/*"],
+			
     }
   },
   "include": ["src"]
