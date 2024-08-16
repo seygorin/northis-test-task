@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { store } from "@store/store";
 import client from "@service/githubApi";
 import App from "./App";
+import "./i18n";
 
 import "@styles/global.scss";
 

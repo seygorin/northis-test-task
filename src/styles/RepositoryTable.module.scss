@@ -1,4 +1,13 @@
+.tableWrapper {
+  min-height: calc(100vh - 11rem);
+  display: flex;
+  flex-direction: column;
+}
+
+
 .tableContainer {
+
+  height: calc(100vh - 17rem);
   margin-bottom: 2rem;
 }
 
@@ -10,3 +19,4 @@
     background-color: rgba(0, 0, 0, 0.04);
   }
 }
+

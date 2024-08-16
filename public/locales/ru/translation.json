@@ -1,0 +1,15 @@
+{
+  "searchRepositories": "Поиск репозиториев",
+  "search": "Поиск",
+  "name": "Название",
+  "language": "Язык",
+  "forks": "Число форков",
+  "stars": "Число звезд",
+  "updatedAt": "Дата обновления",
+  "welcome": "Добро пожаловать",
+  "searchResults": "Результаты поиска",
+  "pleaseSelectRepository": "Выберите репозитарий",
+  "noDescriptionAvailable": "Описание отсутствует",
+  "notSpecified": "Не указано",
+  "changeLanguage": "Изменить язык"
+}

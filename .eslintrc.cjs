@@ -55,7 +55,7 @@ module.exports = {
         devDependencies: ["vite.config.ts"],
       },
     ],
-    "max-lines-per-function": ["error", { max: 40 }],
+    "max-lines-per-function": ["error", { max: 60 }],
     "no-magic-numbers": [
       "error",
       {

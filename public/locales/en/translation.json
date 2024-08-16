@@ -1,0 +1,15 @@
+{
+  "searchRepositories": "Search repositories",
+  "search": "Search",
+  "name": "Name",
+  "language": "Language",
+  "forks": "Forks",
+  "stars": "Stars",
+  "updatedAt": "Updated At",
+  "welcome": "Welcome",
+  "searchResults": "Search results",
+  "pleaseSelectRepository": "Select a repository",
+  "noDescriptionAvailable": "No description available",
+  "notSpecified": "Not specified",
+  "changeLanguage": "Change Language"
+}

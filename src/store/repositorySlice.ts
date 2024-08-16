@@ -1,90 +1,9 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { gql } from "@apollo/client";
-import client from "@service/githubApi";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Repository, SortField, SortDirection } from "@type/Repository";
+import { initialState, RepositoryState } from "./repositoryTypes";
+import searchRepositories from "./repositoryThunks";
 
-import {
-  Repository,
-  SearchRepositoriesData,
-  SortField,
-  SortDirection,
-} from "@type/Repository";
-
-export interface RepositoryState {
-  repositories: Repository[];
-  loading: boolean;
-  error: string | null;
-  currentPage: number;
-  totalPages: number;
-  sortField: SortField;
-  sortDirection: SortDirection;
-}
-
-const initialState: RepositoryState = {
-  repositories: [],
-  loading: false,
-  error: null,
-  currentPage: 1,
-  totalPages: 1,
-  sortField: "STARS",
-  sortDirection: "DESC",
-};
-
-const SEARCH_REPOSITORIES = gql`
-  query SearchRepositories($query: String!, $first: Int!, $after: String) {
-    search(query: $query, type: REPOSITORY, first: $first, after: $after) {
-      edges {
-        node {
-          ... on Repository {
-            id
-            name
-            description
-            primaryLanguage {
-              name
-            }
-            forkCount
-            stargazerCount
-            updatedAt
-            licenseInfo {
-              name
-            }
-          }
-        }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-      repositoryCount
-    }
-  }
-`;
-
-export const searchRepositories = createAsyncThunk(
-  "repositories/search",
-  async ({
-    query,
-    page,
-    sortField,
-    sortDirection,
-  }: {
-    query: string;
-    page: number;
-    sortField: SortField;
-    sortDirection: SortDirection;
-  }) => {
-    const sortQuery = `${query} sort:${sortField.toLowerCase()}-${sortDirection.toLowerCase()}`;
-    const result = await client.query<SearchRepositoriesData>({
-      query: SEARCH_REPOSITORIES,
-      variables: {
-        query: sortQuery,
-        first: 10,
-        after: page > 1 ? btoa(`cursor:${(page - 1) * 10}`) : null,
-      },
-    });
-
-    return result.data.search;
-  },
-);
+const MAX_ITEMS = 1000;
 
 const repositorySlice = createSlice({
   name: "repositories",
@@ -102,28 +21,68 @@ const repositorySlice = createSlice({
       ...state,
       sortDirection: action.payload,
     }),
+    setItemsPerPage: (state, action: PayloadAction<number>) => ({
+      ...state,
+      itemsPerPage: action.payload,
+    }),
+    setCurrentQuery: (state, action: PayloadAction<string>) => ({
+      ...state,
+      currentQuery: action.payload,
+    }),
+    setSelectedRepository: (
+      state,
+      action: PayloadAction<Repository | null>,
+    ) => ({
+      ...state,
+      selectedRepository: action.payload,
+    }),
+    setSearchQuery: (state, action: PayloadAction<string>) => ({
+      ...state,
+      searchQuery: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder
-      .addCase(searchRepositories.pending, (state) => ({
-        ...state,
-        loading: true,
-        error: null,
-      }))
-      .addCase(searchRepositories.fulfilled, (state, action) => ({
-        ...state,
-        loading: false,
-        repositories: action.payload.edges.map((edge) => edge.node),
-        totalPages: Math.ceil(action.payload.repositoryCount / 10),
-      }))
-      .addCase(searchRepositories.rejected, (state, action) => ({
-        ...state,
-        loading: false,
-        error: action.error.message || "An error occurred",
-      }));
+      .addCase(
+        searchRepositories.pending,
+        (state): RepositoryState => ({
+          ...state,
+          loading: true,
+          error: null,
+        }),
+      )
+      .addCase(
+        searchRepositories.fulfilled,
+        (state, action): RepositoryState => {
+          const totalCount = action.payload.repositoryCount;
+          const effectiveTotalCount = Math.min(totalCount, MAX_ITEMS);
+          return {
+            ...state,
+            loading: false,
+            repositories: action.payload.edges.map((edge) => edge.node),
+            totalPages: Math.ceil(effectiveTotalCount / state.itemsPerPage),
+            totalCount: effectiveTotalCount,
+          };
+        },
+      )
+      .addCase(
+        searchRepositories.rejected,
+        (state, action): RepositoryState => ({
+          ...state,
+          loading: false,
+          error: action.error.message || "An error occurred",
+        }),
+      );
   },
 });
 
-export const { setPage, setSortField, setSortDirection } =
-  repositorySlice.actions;
+export const {
+  setPage,
+  setSortField,
+  setSortDirection,
+  setItemsPerPage,
+  setCurrentQuery,
+  setSelectedRepository,
+  setSearchQuery,
+} = repositorySlice.actions;
 export default repositorySlice.reducer;

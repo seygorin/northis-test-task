@@ -1,9 +1,18 @@
 .searchForm {
-  margin-bottom: 2rem;
   display: flex;
-  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  gap: 16px;
 
-  button {
-    min-width: 120px;
+  .searchInput {
+    flex-grow: 1;
+    background-color: white;
+    border-radius: 4px;
+    height: 40px;
+
+  }
+
+  .searchButton {
+    min-width: 100px;
   }
 }

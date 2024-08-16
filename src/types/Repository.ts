@@ -23,11 +23,33 @@ export interface RepositoryConnection {
     endCursor: string;
     hasNextPage: boolean;
   };
+  repositoryCount: number;
 }
 
 export interface SearchRepositoriesData {
   search: RepositoryConnection;
 }
 
-export type SortField = "STARS" | "FORKS" | "UPDATED_AT";
+export type SortField = "STARS" | "FORKS" | "UPDATED_AT" | "NAME";
 export type SortDirection = "ASC" | "DESC";
+
+export interface RepositoryState {
+  repositories: Repository[];
+  loading: boolean;
+  error: string | null;
+  currentPage: number;
+  totalPages: number;
+  sortField: SortField;
+  sortDirection: SortDirection;
+  itemsPerPage: number;
+  currentQuery: string;
+  totalCount: number;
+}
+
+export interface SearchRepositoriesParams {
+  query: string;
+  page: number;
+  sortField: SortField;
+  sortDirection: SortDirection;
+  itemsPerPage: number;
+}

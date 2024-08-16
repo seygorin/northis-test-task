@@ -1,0 +1,20 @@
+.toolbar {
+  padding: 19px 32px;
+  background-color: hsla(185, 100%, 28%, 1);
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchFormContainer {
+  flex-grow: 1;
+}
+
+.languageButton {
+  min-width: auto;
+  padding: 8px;
+  color: white !important;
+}

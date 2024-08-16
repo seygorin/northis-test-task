@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@store/store";
-import {
-  setSortField,
-  setSortDirection,
-  searchRepositories,
-} from "@store/repositorySlice";
+import { setSortField, setSortDirection } from "@store/repositorySlice";
+import searchRepositories from "@store/repositoryThunks";
 import { SortField, SortDirection } from "@type/Repository";
 
 const useRepositorySort = () => {
