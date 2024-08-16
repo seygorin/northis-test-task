@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Alert, Snackbar } from "@mui/material";
 import { RootState, AppDispatch } from "@store/store";
 import { Repository } from "@type/Repository";
 import { setSelectedRepository } from "@store/repositorySlice";
@@ -17,6 +18,7 @@ function App() {
     sortDirection,
     itemsPerPage,
     selectedRepository,
+    error,
   } = useSelector((state: RootState) => state.repositories);
 
   useEffect(() => {
@@ -56,16 +58,23 @@ function App() {
   }, []);
 
   return (
-    <AppLayout
-      onOutsideClick={handleOutsideClick}
-      onContentClick={handleContentClick}
-    >
-      <RepositoryContent
-        repositories={repositories}
-        selectedRepository={selectedRepository}
-        onSelectRepository={handleSelectRepository}
-      />
-    </AppLayout>
+    <>
+      <AppLayout
+        onOutsideClick={handleOutsideClick}
+        onContentClick={handleContentClick}
+      >
+        <RepositoryContent
+          repositories={repositories}
+          selectedRepository={selectedRepository}
+          onSelectRepository={handleSelectRepository}
+        />
+      </AppLayout>
+      {error && (
+        <Snackbar open autoHideDuration={6000}>
+          <Alert severity="error">{error}</Alert>
+        </Snackbar>
+      )}
+    </>
   );
 }
 
