@@ -4,8 +4,8 @@ import { RootState, AppDispatch } from "@store/store";
 import { Repository } from "@type/Repository";
 import { setSelectedRepository } from "@store/repositorySlice";
 import searchRepositories from "@store/repositoryThunks";
-import AppLayout from "./AppLayout";
-import RepositoryContent from "./RepositoryContent";
+import AppLayout from "./components/AppLayout";
+import RepositoryContent from "./components/RepositoryContent";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
