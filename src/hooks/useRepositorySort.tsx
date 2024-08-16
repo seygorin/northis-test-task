@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@store/store";
+import { RootState, AppDispatch } from "@store/store";
 import { setSortField, setSortDirection } from "@store/repositorySlice";
 import searchRepositories from "@store/repositoryThunks";
 import { SortField, SortDirection } from "@type/Repository";
 
 const useRepositorySort = () => {
-  const dispatch = useDispatch();
-  const { sortField, sortDirection } = useSelector(
+  const dispatch: AppDispatch = useDispatch();
+  const { sortField, sortDirection, itemsPerPage } = useSelector(
     (state: RootState) => state.repositories,
   );
 
@@ -21,6 +21,7 @@ const useRepositorySort = () => {
         page: 1,
         sortField: field,
         sortDirection: newDirection,
+        itemsPerPage,
       }),
     );
   };

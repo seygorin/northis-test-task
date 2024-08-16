@@ -1,3 +1,25 @@
+export interface LanguageNode {
+  name: string;
+}
+
+export interface LanguageEdge {
+  node: LanguageNode;
+}
+
+export interface LanguageConnection {
+  edges: LanguageEdge[];
+}
+
+export interface TopicNode {
+  topic: {
+    name: string;
+  };
+}
+
+export interface TopicEdge {
+  node: TopicNode;
+}
+
 export interface Repository {
   id: string;
   name: string;
@@ -9,8 +31,12 @@ export interface Repository {
   stargazerCount: number;
   updatedAt: string;
   licenseInfo: {
-    name: string;
+    name: string | null;
   } | null;
+  languages?: LanguageConnection;
+  repositoryTopics?: {
+    edges: TopicEdge[];
+  };
 }
 
 export interface RepositoryEdge {
@@ -44,6 +70,8 @@ export interface RepositoryState {
   itemsPerPage: number;
   currentQuery: string;
   totalCount: number;
+  selectedRepository: Repository | null;
+  searchQuery: string;
 }
 
 export interface SearchRepositoriesParams {

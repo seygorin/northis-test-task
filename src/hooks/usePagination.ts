@@ -1,14 +1,16 @@
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "@store/store";
 import { setPage, setItemsPerPage } from "@store/repositorySlice";
+import { SortField, SortDirection } from "@type/Repository";
 import searchRepositories from "@store/repositoryThunks";
 
 function usePagination(
   currentQuery: string,
-  sortField: string,
-  sortDirection: string,
+  sortField: SortField,
+  sortDirection: SortDirection,
   itemsPerPage: number,
 ) {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,

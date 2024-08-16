@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Repository, SortField, SortDirection } from "@type/Repository";
-import { initialState, RepositoryState } from "./repositoryTypes";
+import {
+  Repository,
+  SortField,
+  SortDirection,
+  RepositoryState,
+} from "@type/Repository";
+import initialState from "./repositoryState";
 import searchRepositories from "./repositoryThunks";
 
 const MAX_ITEMS = 1000;

@@ -1,6 +1,6 @@
 import { Typography, Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Repository } from "@type/Repository";
+import { Repository, LanguageEdge, TopicEdge } from "@type/Repository";
 import styles from "@styles/RepositoryDetails.module.scss";
 import RepositoryTitle from "./RepositoryTitle";
 import RepositoryInfo from "./RepositoryInfo";
@@ -18,10 +18,12 @@ function RepositoryDetails({
   if (!repository) return null;
 
   const languages =
-    repository.languages?.edges.map((edge) => edge.node.name) || [];
-  const topics =
-    repository.repositoryTopics?.edges.map((edge) => edge.node.topic.name) ||
+    repository.languages?.edges.map((edge: LanguageEdge) => edge.node.name) ||
     [];
+  const topics =
+    repository.repositoryTopics?.edges.map(
+      (edge: TopicEdge) => edge.node.topic.name,
+    ) || [];
 
   return (
     <Box className={styles.detailsContainer}>
@@ -30,9 +32,9 @@ function RepositoryDetails({
         primaryLanguage={repository.primaryLanguage}
         stargazerCount={repository.stargazerCount}
       />
-      {languages.length > 0 && <ChipList items={languages} />}
+      {languages.length > 0 && <ChipList items={languages} variant="filled" />}
       {topics.length > 0 && <ChipList items={topics} variant="outlined" />}
-      <RepositoryLicense licenseName={repository.licenseInfo?.name} />
+      <RepositoryLicense licenseName={repository.licenseInfo?.name ?? null} />
       <Typography
         color="textSecondary"
         gutterBottom

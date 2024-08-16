@@ -9,8 +9,13 @@ interface TablePaginationProps {
   totalCount: number;
   itemsPerPage: number;
   currentPage: number;
-  onChangePage: (event: React.MouseEvent | null, newPage: number) => void;
-  onChangeRowsPerPage: (event: React.ChangeEvent) => void;
+  onChangePage: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => void;
+  onChangeRowsPerPage: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => void;
 }
 
 function TablePagination({

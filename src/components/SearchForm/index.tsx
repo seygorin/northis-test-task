@@ -3,12 +3,12 @@ import { TextField, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { setCurrentQuery, setSearchQuery } from "@store/repositorySlice";
 import searchRepositories from "@store/repositoryThunks";
-import { RootState } from "@store/store";
+import { RootState, AppDispatch } from "@store/store";
 import styles from "@styles/SearchForm.module.scss";
 
 function SearchForm() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { sortField, sortDirection, itemsPerPage, searchQuery } = useSelector(
     (state: RootState) => state.repositories,
   );

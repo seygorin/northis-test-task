@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { TableContainer, Table } from "@mui/material";
 import { RootState } from "@store/store";
-import useRepositorySort from "@hooks/useRepositorySort";
 import usePagination from "@hooks/usePagination";
 import { Repository } from "@type/Repository";
 import styles from "@styles/RepositoryTable.module.scss";
@@ -26,7 +25,6 @@ function RepositoryTable({
     sortField,
     sortDirection,
   } = useSelector((state: RootState) => state.repositories);
-  const { handleSort } = useRepositorySort();
   const { handleChangePage, handleChangeRowsPerPage } = usePagination(
     currentQuery,
     sortField,
@@ -38,11 +36,7 @@ function RepositoryTable({
     <div className={styles.tableWrapper}>
       <TableContainer className={styles.tableContainer}>
         <Table stickyHeader className={styles.table}>
-          <TableHeader
-            handleSort={handleSort}
-            sortField={sortField}
-            sortDirection={sortDirection}
-          />
+          <TableHeader />
           <TableRows
             repositories={repositories}
             onSelectRepository={onSelectRepository}

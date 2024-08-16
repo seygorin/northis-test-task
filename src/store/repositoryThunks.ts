@@ -7,6 +7,8 @@ import {
 } from "@type/Repository";
 import SEARCH_REPOSITORIES from "./repositoryQueries";
 
+const ITEM_PER_PAGE = 10;
+
 const searchRepositories = createAsyncThunk(
   "repositories/search",
   async ({
@@ -14,7 +16,7 @@ const searchRepositories = createAsyncThunk(
     page,
     sortField,
     sortDirection,
-    itemsPerPage = 10,
+    itemsPerPage = ITEM_PER_PAGE,
   }: {
     query: string;
     page: number;
